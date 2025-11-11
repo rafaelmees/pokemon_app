@@ -1,0 +1,111 @@
+part of 'theme.dart';
+
+class _AppText {
+  static TextTheme textTheme = const TextTheme(
+    bodyLarge: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      height: 24 / 16,
+      letterSpacing: 0.5,
+    ),
+    bodyMedium: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      height: 20 / 14,
+      letterSpacing: 0.25,
+    ),
+    bodySmall: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      height: 16 / 12,
+      letterSpacing: 0.4,
+    ),
+    displayLarge: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 57,
+      fontWeight: FontWeight.w400,
+      height: 64 / 57,
+      letterSpacing: 0,
+    ),
+    displayMedium: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 45,
+      fontWeight: FontWeight.w400,
+      height: 52 / 45,
+      letterSpacing: 0,
+    ),
+    displaySmall: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 36,
+      fontWeight: FontWeight.w400,
+      height: 44 / 36,
+      letterSpacing: 0,
+    ),
+    headlineLarge: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 32,
+      fontWeight: FontWeight.w400,
+      height: 40 / 32,
+      letterSpacing: 0,
+    ),
+    headlineMedium: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 28,
+      fontWeight: FontWeight.w400,
+      height: 36 / 28,
+      letterSpacing: 0,
+    ),
+    headlineSmall: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 24,
+      fontWeight: FontWeight.w400,
+      height: 32 / 24,
+      letterSpacing: 0,
+    ),
+    labelLarge: TextStyle(
+      fontFamily: 'Roboto Medium',
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      height: 20 / 14,
+      letterSpacing: 0.1,
+    ),
+    labelMedium: TextStyle(
+      fontFamily: 'Roboto Medium',
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      height: 16 / 12,
+      letterSpacing: 0.5,
+    ),
+    labelSmall: TextStyle(
+      fontFamily: 'Roboto Medium',
+      fontSize: 11,
+      fontWeight: FontWeight.w500,
+      height: 16 / 11,
+      letterSpacing: 0.5,
+    ),
+    titleLarge: TextStyle(
+      fontFamily: 'Roboto Regular',
+      fontSize: 22,
+      fontWeight: FontWeight.w400,
+      height: 28 / 22,
+      letterSpacing: 0,
+    ),
+    titleMedium: TextStyle(
+      fontFamily: 'Roboto Medium',
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      height: 24 / 16,
+      letterSpacing: 0.15,
+    ),
+    titleSmall: TextStyle(
+      fontFamily: 'Roboto Medium',
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      height: 20 / 14,
+      letterSpacing: 0.1,
+    ),
+  );
+}
