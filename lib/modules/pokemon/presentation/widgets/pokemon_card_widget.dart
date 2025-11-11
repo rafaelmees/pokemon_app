@@ -56,7 +56,7 @@ class PokemonCardWidget extends StatelessWidget {
               Positioned(
                 right: AppConstants.spacing1,
                 child: Text(
-                  [
+                  <String>[
                     '#',
                     pokemon.number,
                   ].join(),
