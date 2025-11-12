@@ -1,10 +1,13 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/constants.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/theme/theme.dart';
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
+import 'package:pokemon_app/modules/pokemon/presentation/blocs/detail/bloc.dart';
+import 'package:pokemon_app/modules/pokemon/presentation/pages/detail/detail_page.dart';
 import 'package:pokemon_app/modules/pokemon/presentation/widgets/type_chip.dart';
 import 'package:pokemon_app/modules/pokemon/presentation/widgets/pokemon_card_widget.dart';
 
@@ -15,6 +18,24 @@ class PokemonDetailWidget extends StatelessWidget {
   });
 
   final Pokemon pokemon;
+
+  void onTapEvolution(BuildContext context, Pokemon targetPokemon) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => PokemonDetailPage(
+          pokemon: targetPokemon,
+        ),
+      ),
+    ).then(
+      (_) {
+        BlocProvider.of<PokemonDetailBloc>(context).add(
+          PokemonDetailEventLoadPokemon(
+            pokemon: pokemon,
+          ),
+        );
+      }
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +78,20 @@ class PokemonDetailWidget extends StatelessWidget {
               ),
             ],
           ),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                BlocProvider.of<PokemonDetailBloc>(context).add(
+                  PokemonDetailEventToggleFavorite(
+                    pokemon: pokemon,
+                  ),
+                );
+              },
+              icon: Icon(
+                pokemon.isFavorite == true ? Icons.star : Icons.star_border,
+              ),
+            ),
+          ],
           flexibleSpace: FlexibleSpaceBar(
             background: Stack(
               children: <Widget>[
@@ -207,6 +242,9 @@ class PokemonDetailWidget extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: AppConstants.spacing1),
                           child: PokemonCardWidget(
                             pokemon: evolution,
+                            onTap: () {
+                              onTapEvolution(context, evolution);
+                            },
                           ),
                         ),
                       ),
@@ -215,14 +253,20 @@ class PokemonDetailWidget extends StatelessWidget {
                         padding: const EdgeInsets.only(bottom: AppConstants.spacing1),
                         child: PokemonCardWidget(
                           pokemon: pokemon,
+                          onTap: () {
+                            onTapEvolution(context, pokemon);
+                          },
                         ),
-                        ),
+                      ),
                       if (pokemon.evolutions!.next.isNotEmpty) ...pokemon.evolutions!.next.map<Widget>(
                         (Pokemon evolution) => Container(
                           height: 100,
                           padding: const EdgeInsets.only(bottom: AppConstants.spacing1),
                           child: PokemonCardWidget(
                             pokemon: evolution,
+                            onTap: () {
+                              onTapEvolution(context, evolution);
+                            },
                           ),
                         ),
                       ),

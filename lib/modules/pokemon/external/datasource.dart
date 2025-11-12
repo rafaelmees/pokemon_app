@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:http/http.dart' as http;
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
+
+int count = 0;
 
 class PokemonDatasource {
   static String pokemonListUrl = 'https://raw.githubusercontent.com/Biuni/PokemonGo-Pokedex/master/pokedex.json';
@@ -11,10 +14,22 @@ class PokemonDatasource {
   static Future<List<Map<String, dynamic>>> getPokemonListJson() async {
     final http.Response response = await client.get(Uri.parse(pokemonListUrl));
 
+    await Hive.initFlutter();
+    final Box<List<int>> box = await Hive.openBox('favorites');
+    final List<int> ids = (box.get('ids', defaultValue: <int>[]) as List<int>).cast<int>();
+
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
       final List<dynamic> pokemonList = jsonData['pokemon'] ?? <dynamic>[];
-      return pokemonList.cast<Map<String, dynamic>>();
+      return pokemonList.cast<Map<String, dynamic>>().map(
+        (Map<String, dynamic> json) {
+          final bool isFavorite = ids.contains(json['id']);
+          return <String, dynamic>{
+            ...json,
+            'favorite': isFavorite,
+          };
+        },
+      ).toList();
     } else {
       throw http.ClientException('Failed to load pokémons', Uri.parse(pokemonListUrl));
     }
@@ -63,5 +78,23 @@ class PokemonDatasource {
     final List<Map<String, dynamic>> pokemonList = await getPokemonListJson();
 
     return pokemonList.map((Map<String, dynamic> json) => Pokemon.fromJson(json)).toList();
+  }
+
+  static Future<void> setFavorite({
+    required int id,
+    required bool isFavorite,
+  }) async {
+    await Hive.initFlutter();
+    final Box<List<int>> box = await Hive.openBox('favorites');
+    final List<int> ids = (box.get('ids', defaultValue: <int>[]) as List<int>).cast<int>();
+
+    if (ids.contains(id)) {
+      ids.remove(id);
+    } else {
+      ids.add(id);
+    }
+
+    await box.put('ids', ids);
+    count++;
   }
 }

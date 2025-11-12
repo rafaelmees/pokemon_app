@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/constants.dart';
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
+import 'package:pokemon_app/modules/pokemon/presentation/blocs/list/bloc.dart';
+import 'package:pokemon_app/modules/pokemon/presentation/pages/detail/detail_page.dart';
 import 'package:pokemon_app/modules/pokemon/presentation/widgets/pokemon_card_widget.dart';
 
 class PokemonListWidget extends StatefulWidget {
@@ -79,6 +82,7 @@ class _PokemonListWidgetState extends State<PokemonListWidget> {
                     labelText: 'Search Pokémon',
                     border: OutlineInputBorder(),
                     hintText: 'Enter Pokémon name or number',
+                    prefixIcon: Icon(Icons.search),
                   ),
                 ),
               ),
@@ -97,6 +101,21 @@ class _PokemonListWidgetState extends State<PokemonListWidget> {
                     (BuildContext context, int index) {
                       final Pokemon pokemon = filteredPokemons[index];
                       return PokemonCardWidget(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => PokemonDetailPage(
+                                pokemon: pokemon,
+                              ),
+                            ),
+                          ).then(
+                            (_) {
+                              BlocProvider.of<PokemonListBloc>(context).add(
+                                const PokemonListEventLoadPokemons(),
+                              );
+                            }
+                          );
+                        },
                         pokemon: pokemon,
                       );
                     },

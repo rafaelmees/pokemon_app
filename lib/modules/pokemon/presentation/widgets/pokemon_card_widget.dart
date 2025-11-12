@@ -3,14 +3,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/constants.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/theme/theme.dart';
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
-import 'package:pokemon_app/modules/pokemon/presentation/pages/detail/detail_page.dart';
 
 class PokemonCardWidget extends StatelessWidget {
   const PokemonCardWidget({
     super.key,
+    this.onTap,
     required this.pokemon,
   });
 
+  final void Function()? onTap;
   final Pokemon pokemon;
 
   @override
@@ -28,15 +29,7 @@ class PokemonCardWidget extends StatelessWidget {
         color: cardColor,
         clipBehavior: Clip.hardEdge,
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => PokemonDetailPage(
-                  pokemon: pokemon,
-                ),
-              ),
-            );
-          },
+          onTap: onTap,
           child: Stack(
             children: <Widget>[
               Positioned.fill(
@@ -53,13 +46,22 @@ class PokemonCardWidget extends StatelessWidget {
                 ),
               ),
 
-            Positioned(
+              Positioned(
                 right: AppConstants.spacing1,
                 child: Text(
                   <String>[
                     '#',
                     pokemon.number,
                   ].join(),
+                ),
+              ),
+
+              Positioned(
+                left: AppConstants.spacing1,
+                top: AppConstants.spacing1,
+                child: Icon(
+                  pokemon.isFavorite == true ? Icons.star : Icons.star_border,
+                  color: textColor,
                 ),
               ),
 

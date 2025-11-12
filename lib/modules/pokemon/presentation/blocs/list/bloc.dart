@@ -16,7 +16,9 @@ class PokemonListBloc extends Bloc<PokemonListEvent, PokemonListState>{
     PokemonListEventLoadPokemons event,
     Emitter<PokemonListState> emit,
   ) async {
-    emit(const PokemonListStateLoading());
+    if (state is! PokemonListStateLoaded) {
+      emit(const PokemonListStateLoading());
+    }
 
     await (GetPokemonsUsecase()()).then(
       (Either<Failure, List<Pokemon>> result) {

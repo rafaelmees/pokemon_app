@@ -11,6 +11,7 @@ class Pokemon extends Equatable {
     required this.height,
     required this.id,
     required this.image,
+    this.isFavorite = false,
     required this.name,
     required this.number,
     required this.types,
@@ -26,6 +27,8 @@ class Pokemon extends Equatable {
   final int id;
   @JsonKey(name: 'img')
   final String image;
+  @JsonKey(name: 'favorite', defaultValue: false)
+  final bool isFavorite;
   @JsonKey(name: 'name')
   final String name;
   @JsonKey(name: 'num')
@@ -48,6 +51,7 @@ class Pokemon extends Equatable {
     String? height,
     int? id,
     String? image,
+    bool? isFavorite,
     String? name,
     String? number,
     List<String>? types,
@@ -59,6 +63,7 @@ class Pokemon extends Equatable {
       height: height ?? this.height,
       id: id ?? this.id,
       image: image ?? this.image,
+      isFavorite: isFavorite ?? this.isFavorite,
       name: name ?? this.name,
       number: number ?? this.number,
       types: types ?? this.types,

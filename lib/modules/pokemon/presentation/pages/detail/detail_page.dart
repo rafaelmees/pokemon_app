@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
+import 'package:pokemon_app/modules/pokemon/domain/failures/failure.dart';
 import 'package:pokemon_app/modules/pokemon/presentation/blocs/detail/bloc.dart';
 import 'package:pokemon_app/modules/pokemon/presentation/pages/detail/widgets/detail_widget.dart';
 
@@ -28,7 +29,9 @@ class PokemonDetailPage extends StatelessWidget {
                 content: Text(pokemonDetailState.failure.message),
               ),
             );
-            Navigator.of(context).pop();
+            if (pokemonDetailState.failure is PokemonGetPokemonFailure) {
+              Navigator.of(context).pop();
+            }
           }
         },
         builder: (BuildContext context, PokemonDetailState pokemonDetailState) {

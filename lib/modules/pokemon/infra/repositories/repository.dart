@@ -43,8 +43,8 @@ class PokemonRepository {
     } catch (error, stackTrace) {
       Tracking.error(
         'Error!',
-        module: 'Member',
-        method: 'getMembers',
+        module: 'Pokemon',
+        method: 'getPokemons',
         error: error,
         stackTrace: stackTrace,
       );
@@ -52,6 +52,40 @@ class PokemonRepository {
         return Left<Failure, List<Pokemon>>(error);
       }
       return Left<Failure, List<Pokemon>>(PokemonGetPokemonsFailure());
+    }
+  }
+
+  static Future<Either<Failure, void>> setFavorite({
+    required int id,
+    required bool isFavorite,
+  }) async {
+    try {
+      Tracking.log(
+        'Setting favorite status',
+        module: 'Pokemon',
+        method: 'setFavorite',
+        parameters: <String, dynamic>{
+          'id': id,
+          'isFavorite': isFavorite,
+        },
+      );
+      await PokemonDatasource.setFavorite(
+        id: id,
+        isFavorite: isFavorite,
+      );
+      return Right<Failure, void>(null);
+    } catch (error, stackTrace) {
+      Tracking.error(
+        'Error!',
+        module: 'Pokemon',
+        method: 'setFavorite',
+        error: error,
+        stackTrace: stackTrace,
+      );
+      if (error is Failure) {
+        return Left<Failure, void>(error);
+      }
+      return Left<Failure, void>(PokemonSetFavoriteFailure());
     }
   }
 }
