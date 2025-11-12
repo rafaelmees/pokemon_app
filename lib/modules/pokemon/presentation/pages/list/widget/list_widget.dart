@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokemon_app/modules/app/common/tracking/tracking.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/constants.dart';
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
 import 'package:pokemon_app/modules/pokemon/presentation/blocs/list/bloc.dart';
@@ -102,6 +103,10 @@ class _PokemonListWidgetState extends State<PokemonListWidget> {
                       final Pokemon pokemon = filteredPokemons[index];
                       return PokemonCardWidget(
                         onTap: () {
+                          Tracking.event(
+                            name: 'pokemon_selected',
+                            parameters: pokemon.toJson(),
+                          );
                           Navigator.of(context).push(
                             MaterialPageRoute<void>(
                               builder: (BuildContext context) => PokemonDetailPage(

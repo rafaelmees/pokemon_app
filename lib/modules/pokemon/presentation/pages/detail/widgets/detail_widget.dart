@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pokemon_app/modules/app/common/tracking/tracking.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/constants.dart';
 import 'package:pokemon_app/modules/app/core/presentation/config/theme/theme.dart';
 import 'package:pokemon_app/modules/pokemon/domain/entities/pokemon.dart';
@@ -20,6 +21,10 @@ class PokemonDetailWidget extends StatelessWidget {
   final Pokemon pokemon;
 
   void onTapEvolution(BuildContext context, Pokemon targetPokemon) {
+    Tracking.event(
+      name: 'pokemon_selected',
+      parameters: pokemon.toJson(),
+    );
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (BuildContext context) => PokemonDetailPage(
