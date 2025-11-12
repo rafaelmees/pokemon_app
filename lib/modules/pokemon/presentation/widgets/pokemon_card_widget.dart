@@ -52,8 +52,8 @@ class PokemonCardWidget extends StatelessWidget {
                   ),
                 ),
               ),
-          
-              Positioned(
+
+            Positioned(
                 right: AppConstants.spacing1,
                 child: Text(
                   <String>[
@@ -62,7 +62,7 @@ class PokemonCardWidget extends StatelessWidget {
                   ].join(),
                 ),
               ),
-          
+
               Positioned.fill(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

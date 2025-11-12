@@ -44,7 +44,11 @@ cd pokemon_app
 flutter pub get
 ```
 
-3. Rodar no dispositivo/emulador Android:
+3. Configurar Firebase Analytics
+- Baixe o arquivo `google-services.json` do console do Firebase (projeto criado para Android).
+- Coloque o arquivo na pasta `android/app/`.
+
+4. Rodar no dispositivo/emulador Android:
 ```bash
 flutter run
 ```
@@ -72,8 +76,29 @@ flutter analyze
 
 ## Arquitetura e decisões técnicas
 - Adotado o Clean Architecture para separação de camadas e responsabilidades.
+- BLOC para controle de estados, escolhido pela facilidade de utilizar cache com o HydratedBloc e pela organização e separação da regra de negócios, estados e eventos.
 - Datasource que faz fetch do JSON da Pokedex (endereço usado no teste: `https://raw.githubusercontent.com/Biuni/PokemonGo-Pokedex/master/pokedex.json`).
 - Testes focados em:
   - Parsing/transformação dos dados recebidos
   - Renderização de widgets importantes (lista e detalhe)
 - Linter configurado (arquivo `analysis_options.yaml`) para manter padrão de código.
+
+---
+
+## TODO / Roadmap
+
+- [x] Busca (search) por nome/numero
+- [ ] Favoritos (marcar Pokémons como favoritos e listar apenas favoritos)
+- [ ] Cache local (usar `shared_preferences` ou `hive` para armazenar cache de lista e detalhes)
+- [ ] Melhor cobertura de testes (unit + widget + integration)
+- [ ] Workflow CI (GitHub Actions) para rodar `flutter analyze` e `flutter test`
+- [ ] Otimização de imagens (usar `cached_network_image`)
+- [ ] Acessibilidade (labels, roles, tamanhos de toque)
+- [ ] Temas (light/dark) e preferências do usuário
+
+#### Features divertidas / experimentais
+- [ ] Jogo "Quem é esse Pokémon?" — quiz baseado em imagens e respostas múltiplas
+  - Implementação sugerida:
+    - Tela de jogo que escolhe aleatoriamente um Pokémon e mostra a silhueta (ou imagem desfocada)
+    - Quatro alternativas (one correct + 3 distractors)
+- [ ] Animações: transições entre lista e detalhe, animação ao favoritar
