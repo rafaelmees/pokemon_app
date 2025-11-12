@@ -88,13 +88,13 @@ flutter analyze
 ## TODO / Roadmap
 
 - [x] Busca (search) por nome/numero
-- [X] Favoritos (marcar Pokémons como favoritos e listar apenas favoritos)
+- [x] Favoritos (marcar Pokémons como favoritos e listar apenas favoritos)
   - Feito: persistência com o Hive e interação na UI.
   - Faltando: listar favoritos e performar a busca da informação de favoritos (está buscando todos os Pokémons novamente quando fecha a tela de detalhe).
-- [ ] Cache local (usar `shared_preferences` ou `hive` para armazenar cache de lista e detalhes)
+- [ ] Otimização de imagens (usar `cached_network_image`)
+- [ ] Cache local (usar `hydrated_bloc` para armazenar cache de lista e detalhes)
 - [ ] Melhor cobertura de testes (unit + widget + integration)
 - [ ] Workflow CI (GitHub Actions) para rodar `flutter analyze` e `flutter test`
-- [ ] Otimização de imagens (usar `cached_network_image`)
 - [ ] Acessibilidade (labels, roles, tamanhos de toque)
 - [ ] Temas (light/dark) e preferências do usuário
 
